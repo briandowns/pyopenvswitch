@@ -1,6 +1,6 @@
 # coding=utf-8
 
-# Copyright 2014 Brian J. Downs <brian.downs@gmail.com>
+# Copyright 2014 Brian J. Downs
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.

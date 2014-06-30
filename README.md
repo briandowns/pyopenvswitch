@@ -28,7 +28,7 @@ Examples
 >>> from pyopenvswitch import vsctl
 >>> vsctl.list_bridges()
 >>> from pyopenvswitch import ofctl
->>> ofctl.()
+>>> ofctl.show('br1')
 >>> from pyopenvswitch import dpctl
 >>> dpctl.dump_flows()
 ```

@@ -14,12 +14,6 @@ Requirements
 
 - Open vSwitch 1.10 +
 
-Installation
-------------
-
-```bash
-pip install pyopenvswitch
-```
 
 Examples
 --------

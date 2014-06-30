@@ -17,7 +17,7 @@ Requirements
 Installation
 ------------
 
-bash```
+```bash
 pip install pyopenvswitch
 ```
 

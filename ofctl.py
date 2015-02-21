@@ -42,7 +42,8 @@ def show(switch):
     """
     log.info("Showing details for {0}".format(switch))
     try:
-        return subprocess.Popen([OVS_CMD, 'show', switch], stdout=subprocess.PIPE).communicate()
+        return subprocess.Popen([OVS_CMD, 'show', switch],
+                                stdout=subprocess.PIPE).communicate()
     except subprocess.CalledProcessError, e:
         log.error(e.output)
         sys.exit(1)
@@ -50,7 +51,8 @@ def show(switch):
 
 def status(switch, key=None):
     """
-    Print out key/value pairs for the provided swtich status. If key is provided, only
+    Print out key/value pairs for the provided swtich status.
+    If key is provided, only
     that data will be shown.
     :param switch: str
     :param key: str
@@ -59,8 +61,10 @@ def status(switch, key=None):
     log.info("Printing status for switch {0}".format(switch))
     try:
         if key:
-            return subprocess.Popen([OVS_CMD, 'status', switch, key], stdout=subprocess.PIPE).communicate()
-        return subprocess.Popen([OVS_CMD, 'status', switch], stdout=subprocess.PIPE).communicate()
+            return subprocess.Popen([OVS_CMD, 'status', switch, key],
+                                    stdout=subprocess.PIPE).communicate()
+        return subprocess.Popen([OVS_CMD, 'status', switch],
+                                stdout=subprocess.PIPE).communicate()
     except subprocess.CalledProcessError, e:
         log.error(e.output)
         sys.exit(1)
@@ -74,7 +78,8 @@ def dump_tables(switch):
     """
     log.info("Showing table statistics for switch {0}".format(switch))
     try:
-        return subprocess.Popen([OVS_CMD, 'dump-tables', switch], stdout=subprocess.PIPE).communicate()
+        return subprocess.Popen([OVS_CMD, 'dump-tables', switch],
+                                stdout=subprocess.PIPE).communicate()
     except subprocess.CalledProcessError, e:
         log.error(e.output)
         sys.exit(1)
@@ -90,8 +95,10 @@ def dump_ports(switch, netdev=None):
     log.info("Showing port statistics for switch {0}".format(switch))
     try:
         if switch:
-            return subprocess.Popen([OVS_CMD, 'dump-ports', switch], stdout=subprocess.PIPE).communicate()
-        return subprocess.Popen([OVS_CMD, 'dump-ports', switch, netdev], stdout=subprocess.PIPE).communicate()
+            return subprocess.Popen([OVS_CMD, 'dump-ports', switch],
+                                    stdout=subprocess.PIPE).communicate()
+        return subprocess.Popen([OVS_CMD, 'dump-ports', switch, netdev],
+                                stdout=subprocess.PIPE).communicate()
     except subprocess.CalledProcessError, e:
         log.error(e.output)
         sys.exit(1)
@@ -107,7 +114,8 @@ def mod_port(switch, netdev, action):
     """
     log.info("Modifying device: {0}".format(netdev))
     try:
-        subprocess.Popen([OVS_CMD, 'mod-port', switch, netdev, action], stdout=subprocess.PIPE).communicate()
+        subprocess.Popen([OVS_CMD, 'mod-port', switch, netdev, action],
+                         stdout=subprocess.PIPE).communicate()
         return True
     except subprocess.CalledProcessError, e:
         log.error(e.output)
@@ -116,18 +124,19 @@ def mod_port(switch, netdev, action):
 
 def dump_flows(switch, flows=None):
     """
-    Show all flows on switch.  If flows is provided, will show flows associated.
+    Show all flows on switch.  If flows is provided, will show flows
+    associated.
     :param switch: str
     :param flows: str
     :return: str
     """
-    flows = flows if flows else None
     log.info("Dumping flows for: {0}".format(switch))
     try:
         if flows:
             return subprocess.Popen([OVS_CMD, 'dump-flows', switch, flows],
                                     stdout=subprocess.PIPE).communicate()
-        return subprocess.Popen([OVS_CMD, 'dump-flows', switch], stdout=subprocess.PIPE).communicate()
+        return subprocess.Popen([OVS_CMD, 'dump-flows', switch],
+                                stdout=subprocess.PIPE).communicate()
     except subprocess.CalledProcessError, e:
         log.error(e.output)
         sys.exit(1)
@@ -141,12 +150,12 @@ def dump_aggregate(switch, flows=None):
     :param flows: str
     :return: str
     """
-    flows = flows if flows else None
     try:
         if flows:
             return subprocess.Popen([OVS_CMD, 'dump-aggregate', switch, flows],
                                     stdout=subprocess.PIPE).communicate()
-        return subprocess.Popen([OVS_CMD, 'dump-aggregate', switch], stdout=subprocess.PIPE).communicate()
+        return subprocess.Popen([OVS_CMD, 'dump-aggregate', switch],
+                                stdout=subprocess.PIPE).communicate()
     except subprocess.CalledProcessError, e:
         log.error(e.output)
         sys.exit(1)
@@ -161,12 +170,11 @@ def queue_stats(switch, port=None, queue=None):
     :param queue: str
     :return: str
     """
-    port = port if port else None
-    queue = queue if queue else None
     try:
         if port:
             if queue:
-                return subprocess.Popen([OVS_CMD, 'queue-stats', switch, port, queue],
+                return subprocess.Popen([OVS_CMD, 'queue-stats',
+                                         switch, port, queue],
                                         stdout=subprocess.PIPE).communicate()
             return subprocess.Popen([OVS_CMD, 'queue-stats', switch, port],
                                     stdout=subprocess.PIPE).communicate()
@@ -185,7 +193,8 @@ def add_flow(switch, flow):
     :return: bool
     """
     try:
-        subprocess.Popen([OVS_CMD, 'add-flow', switch, flow], stdout=subprocess.PIPE).communicate()
+        subprocess.Popen([OVS_CMD, 'add-flow', switch, flow],
+                         stdout=subprocess.PIPE).communicate()
         return True
     except subprocess.CalledProcessError, e:
         log.error(e.output)
@@ -200,7 +209,8 @@ def add_flows(switch, flow_file):
     :return: bool
     """
     try:
-        subprocess.Popen([OVS_CMD, 'add-flows', switch, flow_file], stdout=subprocess.PIPE).communicate()
+        subprocess.Popen([OVS_CMD, 'add-flows', switch, flow_file],
+                         stdout=subprocess.PIPE).communicate()
         return True
     except subprocess.CalledProcessError, e:
         log.error(e.output)
@@ -209,13 +219,14 @@ def add_flows(switch, flow_file):
 
 def mod_flows(switch, flow):
     """
-    Modify the actions in entries  from  the  switch's  tables  that match  flow.
+    Modify the actions in entries from the switch's tables that match flow.
     :param switch: str
     :param flow: str
     :return: bool
     """
     try:
-        subprocess.Popen([OVS_CMD, 'mod-flows', switch, flow], stdout=subprocess.PIPE).communicate()
+        subprocess.Popen([OVS_CMD, 'mod-flows', switch, flow],
+                         stdout=subprocess.PIPE).communicate()
         return True
     except subprocess.CalledProcessError, e:
         log.error(e.output)
@@ -231,9 +242,11 @@ def del_flows(switch, flow=None):
     """
     try:
         if flow:
-            subprocess.Popen([OVS_CMD, 'del-flows', switch, flow], stdout=subprocess.PIPE).communicate()
+            subprocess.Popen([OVS_CMD, 'del-flows', switch, flow],
+                             stdout=subprocess.PIPE).communicate()
             return True
-        subprocess.Popen([OVS_CMD, 'del-flows', switch], stdout=subprocess.PIPE).communicate()
+        subprocess.Popen([OVS_CMD, 'del-flows', switch],
+                         stdout=subprocess.PIPE).communicate()
         return True
     except subprocess.CalledProcessError, e:
         log.error(e.output)
@@ -283,7 +296,8 @@ def ping(target, packet_size=None):
         if packet_size:
             return subprocess.Popen([OVS_CMD, 'ping', target, packet_size],
                                     stdout=subprocess.PIPE).communicate()
-        return subprocess.Popen([OVS_CMD, 'ping', target], stdout=subprocess.PIPE).communicate()
+        return subprocess.Popen([OVS_CMD, 'ping', target],
+                                stdout=subprocess.PIPE).communicate()
     except subprocess.CalledProcessError, e:
         log.error(e.output)
         sys.exit(1)

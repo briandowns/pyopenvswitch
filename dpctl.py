@@ -38,14 +38,15 @@ def add_dp(dp, netdev=None):
     :param netdev: str
     :return: bool
     """
-    netdev = netdev if netdev else None
     log.info("Creating dp: {0}".format(dp))
     try:
         if netdev:
-            subprocess.Popen([OVS_CMD, 'add-dp', dp, netdev], stdout=subprocess.PIPE).communicate()
+            subprocess.Popen([OVS_CMD, 'add-dp', dp, netdev],
+                             stdout=subprocess.PIPE).communicate()
             log.info("{0} created.".format(dp))
             return True
-        subprocess.Popen([OVS_CMD, 'add-dp', dp], stdout=subprocess.PIPE).communicate()
+        subprocess.Popen([OVS_CMD, 'add-dp', dp],
+                         stdout=subprocess.PIPE).communicate()
         log.info("{0} created.".format(dp))
         return True
     except subprocess.CalledProcessError, e:
@@ -61,7 +62,8 @@ def del_dp(dp):
     """
     log.info("Deleting {0}".format(dp))
     try:
-        subprocess.Popen([OVS_CMD, 'del-dp', dp], stdout=subprocess.PIPE).communicate()
+        subprocess.Popen([OVS_CMD, 'del-dp', dp],
+                         stdout=subprocess.PIPE).communicate()
         return True
     except subprocess.CalledProcessError, e:
         log.error(e.output)
@@ -82,15 +84,19 @@ def add_if(dp, netdev, if_type, key):
     log.info("Adding interface: {0}".format(0))
     try:
         if if_type and key:
-            subprocess.Popen([OVS_CMD, 'add-if', netdev, dp, if_type, key], stdout=subprocess.PIPE).communicate()
+            subprocess.Popen([OVS_CMD, 'add-if', netdev, dp, if_type, key],
+                             stdout=subprocess.PIPE).communicate()
             return True
         if if_type:
-            subprocess.Popen([OVS_CMD, 'add-if', netdev, dp, if_type], stdout=subprocess.PIPE).communicate()
+            subprocess.Popen([OVS_CMD, 'add-if', netdev, dp, if_type],
+                             stdout=subprocess.PIPE).communicate()
             return True
         if key:
-            subprocess.Popen([OVS_CMD, 'add-if', netdev, dp, key], stdout=subprocess.PIPE).communicate()
+            subprocess.Popen([OVS_CMD, 'add-if', netdev, dp, key],
+                             stdout=subprocess.PIPE).communicate()
             return True
-        subprocess.Popen([OVS_CMD, 'add-if', netdev, dp], stdout=subprocess.PIPE).communicate()
+        subprocess.Popen([OVS_CMD, 'add-if', netdev, dp],
+                         stdout=subprocess.PIPE).communicate()
         return True
     except subprocess.CalledProcessError, e:
         log.error(e.output)
@@ -123,7 +129,8 @@ def dump_dps():
     """
     log.info("Dumping datapaths")
     try:
-        return subprocess.Popen([OVS_CMD, 'dump-dps'], stdout=subprocess.PIPE).communicate()
+        return subprocess.Popen([OVS_CMD, 'dump-dps'],
+                                stdout=subprocess.PIPE).communicate()
     except subprocess.CalledProcessError, e:
         log.error(e.output)
         sys.exit(1)
@@ -135,12 +142,13 @@ def show(dp=None):
     :param dp: str
     :return: str
     """
-    dp = dp if dp else None
     log.info("Dumping flows for: {0}".format(0))
     try:
         if dp:
-            return subprocess.Popen([OVS_CMD, 'show'], stdout=subprocess.PIPE).communicate()
-        return subprocess.Popen([OVS_CMD, 'show', dp], stdout=subprocess.PIPE).communicate()
+            return subprocess.Popen([OVS_CMD, 'show'],
+                                    stdout=subprocess.PIPE).communicate()
+        return subprocess.Popen([OVS_CMD, 'show', dp],
+                                stdout=subprocess.PIPE).communicate()
     except subprocess.CalledProcessError, e:
         log.error(e.output)
         sys.exit(1)
@@ -154,7 +162,8 @@ def dump_flows(dp):
     """
     log.info("Dumping flows for: {0}".format(0))
     try:
-        return subprocess.Popen([OVS_CMD, 'dump-flows', dp], stdout=subprocess.PIPE).communicate()
+        return subprocess.Popen([OVS_CMD, 'dump-flows', dp],
+                                stdout=subprocess.PIPE).communicate()
     except subprocess.CalledProcessError, e:
         log.error(e.output)
         sys.exit(1)
@@ -168,7 +177,8 @@ def del_flows(dp):
     """
     log.info("Deleting flow from: {0}".format(0))
     try:
-        subprocess.Popen([OVS_CMD, 'del-flows', dp], stdout=subprocess.PIPE).communicate()
+        subprocess.Popen([OVS_CMD, 'del-flows', dp],
+                         stdout=subprocess.PIPE).communicate()
         return True
     except subprocess.CalledProcessError, e:
         log.error(e.output)

@@ -43,8 +43,8 @@ def list_bridges():
     log.info("Getting all bridges")
     try:
         return filter(None, subprocess.Popen(
-            [OVS_CMD, 'list-br'], stdout=subprocess.PIPE).communicate()[0].split('\n')
-        )
+            [OVS_CMD, 'list-br'],
+            stdout=subprocess.PIPE).communicate()[0].split('\n'))
     except subprocess.CalledProcessError, e:
         log.error(e.output)
         sys.exit(1)
@@ -102,8 +102,8 @@ def list_ports(bridge):
     log.info("Listing ports on {0}".format(bridge))
     try:
         return filter(None, subprocess.Popen(
-            [OVS_CMD, 'list-ports', bridge], stdout=subprocess.PIPE).communicate()[0].split('\n')
-        )
+            [OVS_CMD, 'list-ports', bridge],
+            stdout=subprocess.PIPE).communicate()[0].split('\n'))
     except subprocess.CalledProcessError, e:
         log.error(e.output)
         sys.exit(1)
@@ -121,8 +121,8 @@ def add_port(port, bridge, tag):
     try:
         if tag:
             subprocess.Popen(
-                ["{0} --may-exist".format(OVS_CMD), bridge, port, "tag={0}".format(tag)]
-            ).communicate()
+                ["{0} --may-exist".format(OVS_CMD),
+                 bridge, port, "tag={0}".format(tag)]).communicate()
             return True
         subprocess.Popen(
             ["{0} --may-exist".format(OVS_CMD), bridge, port]
@@ -140,10 +140,10 @@ def delete_port(port, bridge=None):
     :param bridge: str
     :return: bool
     """
-    bridge = bridge if bridge else None
     log.info("Deleting port: {0}".format(port))
     try:
-        subprocess.Popen(["{0} --if-exists".format(OVS_CMD), 'del-port', bridge, port],
+        subprocess.Popen(["{0} --if-exists".format(OVS_CMD),
+                         'del-port', bridge, port],
                          stdout=subprocess.PIPE).communicate()
     except subprocess.CalledProcessError, e:
         log.error(e)

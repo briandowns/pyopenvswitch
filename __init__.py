@@ -15,7 +15,7 @@
 """
 Overview
 
-pyopenvswitch is a library for use to control and interact with
+pyopenvswitch is a library to control and interact with
 [Open vSwitch](openvswitch.org) installations.
 
 This library implements the following components of the Open vSwitch software
@@ -27,7 +27,7 @@ package:
 
 Requirements
 
-- Open vSwitch 1.10 +
+- Open vSwitch 1.10 or higher
 
 Installation
 
@@ -38,7 +38,7 @@ Examples
 >>> from pyopenvswitch import vsctl
 >>> vsctl.list_bridges()
 >>> from pyopenvswitch import ofctl
->>> ofctl.()
+>>> ofctl.ping()
 >>> from pyopenvswitch import dpctl
 >>> dpctl.dump_flows()
 """
